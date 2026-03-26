@@ -85,25 +85,25 @@
         .lc:hover .card-cta.gold{box-shadow:0 8px 24px var(--gldg);}
         .lc.book-card{border-color:rgba(232,197,71,.15);}.lc.book-card::before{background:linear-gradient(90deg,var(--gld),var(--ac),var(--gld));}.lc.book-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 30px var(--gldg);}
         .book-price{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--gld);}
-        .pc{background:var(--card);border:1px solid var(--b);border-radius:20px;padding:20px;margin-bottom:8px;transition:all .4s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(12px);}
-        .pc:hover{border-color:var(--bh);transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.25);}
-        .pr{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}.pi{flex:1;}
-        .pb{display:inline-block;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:4px 9px;border-radius:6px;margin-bottom:7px;}
-        .pb.hit{background:var(--ac);color:var(--bg);}.pb.lim{background:rgba(255,80,80,.12);color:#ff7070;border:1px solid rgba(255,80,80,.18);}
-        .pn{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;line-height:1.3;margin-bottom:4px;}
-        .pd{font-size:.69rem;color:var(--t2);line-height:1.55;font-weight:300;}
-        .ppa{text-align:right;flex-shrink:0;}.pop{font-size:.65rem;color:var(--td);text-decoration:line-through;}
-        .pp{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:var(--ac);line-height:1;}
-        .ptw{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap;}
-        .ptg{font-size:.54rem;color:var(--td);background:rgba(255,255,255,.04);border:1px solid var(--b);padding:3px 9px;border-radius:7px;font-weight:500;}
-        .btn{display:block;width:100%;margin-top:14px;padding:13px;text-align:center;font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-radius:12px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;}
-        .btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .7s;}
-        .btn:hover::before{left:100%;}
-        .btn.ac{background:var(--ac);color:var(--bg);}.btn.ac:hover{background:var(--acd);transform:translateY(-2px);box-shadow:0 10px 28px var(--acg);}
-        .btn.gh{background:transparent;color:var(--t2);border:1px solid var(--b);}.btn.gh:hover{background:var(--cardh);border-color:var(--bh);color:var(--t);}
-        .pc.ft{border-color:rgba(200,245,96,.18);background:linear-gradient(135deg,rgba(200,245,96,.03),var(--card));}.pc.ft:hover{box-shadow:0 16px 48px rgba(0,0,0,.35),0 0 36px rgba(200,245,96,.06);}
-        .pc.vip{border-color:rgba(232,197,71,.22);background:linear-gradient(135deg,rgba(232,197,71,.05),rgba(0,0,0,.2));}.pc.vip .pp{color:var(--gld);}.pc.vip:hover{box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 36px var(--gldg);}
-        .btn.gd{background:linear-gradient(135deg,var(--gld),#D4B65F);color:#0A0A0B;font-weight:800;}.btn.gd:hover{box-shadow:0 10px 28px var(--gldg);transform:translateY(-2px);}
+        /* PROGRAMS CTA */
+        .programs-cta{display:block;text-decoration:none;color:var(--t);background:linear-gradient(135deg,rgba(200,245,96,0.05),var(--card),rgba(232,197,71,0.04));border:1px solid rgba(200,245,96,0.2);border-radius:24px;padding:28px 24px;text-align:center;transition:all .45s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(24px);position:relative;overflow:hidden;}
+        .programs-cta::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--ac),var(--gld),var(--ac));background-size:200% 100%;animation:shm 4s ease-in-out infinite;}
+        .programs-cta::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--gld),var(--ac),var(--gld));background-size:200% 100%;animation:shm 4s ease-in-out infinite reverse;}
+        .programs-cta:hover{border-color:rgba(200,245,96,0.35);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 40px var(--acg),0 0 80px rgba(232,197,71,0.05);}
+        .pcta-label{font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);font-weight:600;margin-bottom:14px;}
+        .pcta-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;letter-spacing:-.01em;margin-bottom:12px;background:linear-gradient(135deg,#fff,rgba(255,255,255,.7));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+        .pcta-desc{font-size:.68rem;line-height:1.7;color:var(--t2);font-weight:300;margin-bottom:20px;}
+        .pcta-stats{display:flex;justify-content:center;gap:24px;margin-bottom:20px;padding:14px 0;border-top:1px solid var(--b);border-bottom:1px solid var(--b);}
+        .pcta-stat{text-align:center;}
+        .pcta-num{display:block;font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--t);line-height:1;}
+        .pcta-lab{font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--td);margin-top:3px;display:block;}
+        .pcta-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 24px;background:var(--ac);color:var(--bg);font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;border-radius:14px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;}
+        .pcta-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transition:left .6s;}
+        .programs-cta:hover .pcta-btn{background:var(--acd);box-shadow:0 10px 28px var(--acg);}
+        .programs-cta:hover .pcta-btn::before{left:100%;}
+        .pcta-btn svg{width:14px;height:14px;transition:transform .3s ease;}
+        .programs-cta:hover .pcta-btn svg{transform:translateX(4px);}
+
         .al{display:block;text-align:center;padding:14px;margin-top:8px;border:1px solid var(--b);border-radius:14px;text-decoration:none;color:var(--t2);font-size:.65rem;font-weight:600;letter-spacing:.08em;transition:all .35s ease;}.al:hover{background:var(--card);border-color:var(--bh);color:var(--t);transform:translateY(-1px);}
         .sup{display:flex;align-items:center;justify-content:center;gap:8px;padding:18px;margin-top:32px;text-decoration:none;color:var(--td);font-size:.65rem;font-weight:500;letter-spacing:.05em;transition:color .3s;}.sup:hover{color:var(--ac);}.sup svg{width:15px;height:15px;}
         .foot{text-align:center;padding:22px 0 8px;border-top:1px solid var(--b);}.fb{font-family:'Playfair Display',serif;font-size:.82rem;color:var(--td);font-style:italic;}.fc{font-size:.52rem;color:rgba(255,255,255,.18);margin-top:5px;letter-spacing:.08em;}
@@ -130,7 +130,7 @@
         <div class="sh"><div class="shl"></div><span class="sht">Подписаться</span><div class="shr"></div></div>
         <div class="sr">
             <!-- TELEGRAM — custom paper plane -->
-            <a href="https://t.me/iKWn82tKCXM2YjMy" target="_blank" class="sb tg">
+            <a href="https://t.me/+aEgupwOOOq84YTNi" target="_blank" class="sb tg">
                 <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15.5L28 4 22 28l-7-6.5L28 4"/><path d="M15 21.5V27l3.5-4"/></svg>
                 Telegram
             </a>
@@ -183,15 +183,17 @@
 
     <div class="sec rv d4">
         <div class="sh"><div class="shl"></div><span class="sht">Программы</span><div class="shr"></div></div>
-        <div class="pc ft"><div class="pr"><div class="pi"><div class="pb hit">★ Хит продаж</div><div class="pn">Протокол остановки ума</div><div class="pd">28 дней · 16 мин/день. Перестройка мозга. Тревога ↓78%, ясность ↑85%.</div></div><div class="ppa"><div class="pop">5 900 ₽</div><div class="pp">2 990 ₽</div></div></div><div class="ptw"><span class="ptg">7 видео</span><span class="ptg">PDF 40 стр</span><span class="ptg">Чат</span><span class="ptg">Навсегда</span></div><a href="https://thebodymindcode.github.io/protocol" target="_blank" class="btn ac">Подробнее</a></div>
-        <div class="pc"><div class="pr"><div class="pi"><div class="pn">За пределами заболеваний</div><div class="pd">120 мин: что держит симптомы на месте + практика переключения режима.</div></div><div class="ppa"><div class="pp">1 490 ₽</div></div></div><div class="ptw"><span class="ptg">120 мин</span><span class="ptg">Запись навсегда</span></div><a href="https://thebodymindcode.github.io/Beyond/" target="_blank" class="btn gh">Подробнее</a></div>
-        <div class="pc"><div class="pr"><div class="pi"><div class="pn">Выбор</div><div class="pd">Почему одни делают, а другие годами собираются. 90 мин про решения.</div></div><div class="ppa"><div class="pp">1 490 ₽</div></div></div><div class="ptw"><span class="ptg">90 мин</span><span class="ptg">Запись</span><span class="ptg">Чеклист</span></div><a href="https://thebodymindcode.github.io/choice/" target="_blank" class="btn gh">Подробнее</a></div>
-        <div class="pc"><div class="pr"><div class="pi"><div class="pn">Код денег</div><div class="pd">14-дневный интенсив. Перепишите установки, блокирующие деньги.</div></div><div class="ppa"><div class="pp">5 900 ₽</div></div></div><div class="ptw"><span class="ptg">14 дней</span><span class="ptg">5 Zoom</span><span class="ptg">19 практик</span></div><a href="https://thebodymindcode.github.io/themoneycode/" target="_blank" class="btn gh">Подробнее</a></div>
-        <div class="pc"><div class="pr"><div class="pi"><div class="pn">Внутренний Авторитет</div><div class="pd">Вернуть себе право решать. 3 встречи + техника программирования мозга.</div></div><div class="ppa"><div class="pp">4 900 ₽</div></div></div><div class="ptw"><span class="ptg">7 дней</span><span class="ptg">3 встречи</span><span class="ptg">Тетрадь</span></div><a href="https://thebodymindcode.github.io/authority/" target="_blank" class="btn gh">Подробнее</a></div>
-        <div class="pc"><div class="pr"><div class="pi"><div class="pn">Код нового года</div><div class="pd">3 дня трансформации. Персональная фраза-код + утренний ритуал на год.</div></div><div class="ppa"><div class="pop">7 900 ₽</div><div class="pp">3 990 ₽</div></div></div><div class="ptw"><span class="ptg">3 дня</span><span class="ptg">Zoom</span><span class="ptg">6 практик</span></div><a href="https://thebodymindcode.github.io/NewYearCode/" target="_blank" class="btn gh">Подробнее</a></div>
-        <div class="pc"><div class="pr"><div class="pi"><div class="pb lim">🔥 Осталось 3 места</div><div class="pn">Сессия с Дарьей</div><div class="pd">60–90 мин точечной работы 1 на 1. Трансформация прямо на сессии.</div></div><div class="ppa"><div class="pop">15 000 ₽</div><div class="pp">12 500 ₽</div></div></div><div class="ptw"><span class="ptg">1 на 1</span><span class="ptg">Запись</span><span class="ptg">Навсегда</span></div><a href="https://thebodymindcode.github.io/session1/" target="_blank" class="btn ac">Записаться</a></div>
-        <div class="pc vip"><div class="pr"><div class="pi"><div class="pb" style="background:var(--gld);color:#0A0A0B;">👑 VIP · 1 месяц</div><div class="pn">VIP-сопровождение</div><div class="pd">Персональная трансформация. 4 сессии, Human Design, все программы, личный чат 30 дней.</div></div><div class="ppa"><div class="pp" style="color:var(--gld);">80 000 ₽</div></div></div><div class="ptw"><span class="ptg">4 сессии</span><span class="ptg">Human Design</span><span class="ptg">Все программы</span></div><a href="https://payform.ru/dtaGdlM/" target="_blank" class="btn gd">Записаться</a></div>
-        <a href="https://thebodymindcode.github.io/shop/" target="_blank" class="al">Все программы и сравнение →</a>
+        <a href="https://thebodymindcode.github.io/shop/" target="_blank" class="programs-cta">
+            <div class="pcta-label">8 программ · от 1 490 ₽ · доступ навсегда</div>
+            <div class="pcta-title">Магазин инструментов</div>
+            <div class="pcta-desc">Протокол остановки ума · За пределами заболеваний · Выбор · Код денег · Внутренний Авторитет · Код нового года · Сессия 1 на 1 · VIP-сопровождение</div>
+            <div class="pcta-stats">
+                <div class="pcta-stat"><span class="pcta-num">800+</span><span class="pcta-lab">участников</span></div>
+                <div class="pcta-stat"><span class="pcta-num">92%</span><span class="pcta-lab">результат</span></div>
+                <div class="pcta-stat"><span class="pcta-num">28</span><span class="pcta-lab">дней до МРТ</span></div>
+            </div>
+            <div class="pcta-btn">Смотреть все программы <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
     </div>
     <a href="https://t.me/TheBodyMindCode_support" target="_blank" class="sup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>Поддержка</a>
     <div class="foot"><div class="fb">Архитектура Сознания</div><div class="fc">© 2026 · @thebodymindcode</div></div>
