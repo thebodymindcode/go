@@ -8,152 +8,141 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #060608;
-            --bg-card: rgba(255,255,255,0.035);
-            --bg-card-h: rgba(255,255,255,0.065);
-            --brd: rgba(255,255,255,0.07);
-            --brd-h: rgba(255,255,255,0.14);
-            --tx: #FFFFFF;
-            --tx2: rgba(255,255,255,0.6);
-            --txd: rgba(255,255,255,0.35);
-            --ac: #C8F560;
-            --acg: rgba(200,245,96,0.12);
-            --acd: #A8D140;
-            --gld: #E8C547;
-            --gldg: rgba(232,197,71,0.12);
-        }
+        :root{--bg:#060608;--card:rgba(255,255,255,0.035);--cardh:rgba(255,255,255,0.065);--b:rgba(255,255,255,0.07);--bh:rgba(255,255,255,0.14);--t:#fff;--t2:rgba(255,255,255,0.6);--td:rgba(255,255,255,0.35);--ac:#C8F560;--acg:rgba(200,245,96,0.12);--acd:#A8D140;--gld:#E8C547;--gldg:rgba(232,197,71,0.12);}
         *{margin:0;padding:0;box-sizing:border-box;}
         html{scroll-behavior:smooth;}
-        body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-
-        /* NEURAL CANVAS */
-        #neural{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
-
-        /* NOISE */
+        body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--t);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
         body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.025;pointer-events:none;z-index:10000;}
-
-        /* VIGNETTE */
-        .vignette{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at center,transparent 40%,rgba(6,6,8,0.7) 100%);pointer-events:none;z-index:1;}
-
-        .container{max-width:460px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:2;}
+        #neural{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+        .vig{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 50% 30%,transparent 20%,rgba(6,6,8,0.55) 70%,rgba(6,6,8,0.85) 100%);pointer-events:none;z-index:1;}
+        .ctn{max-width:460px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:2;}
 
         /* HEADER */
-        .header{text-align:center;padding:52px 0 28px;position:relative;}
-        .aw{position:relative;width:114px;height:114px;margin:0 auto 22px;}
-        .ar{position:absolute;inset:-7px;border-radius:50%;border:1.5px solid transparent;background:linear-gradient(135deg,var(--ac),rgba(100,180,255,.5),var(--gld)) border-box;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:rr 8s linear infinite;}
+        .hdr{text-align:center;padding:48px 0 28px;position:relative;}
+        .aw{position:relative;width:130px;height:130px;margin:0 auto 20px;}
+        .a-ring{position:absolute;inset:-8px;border-radius:50%;border:2px solid transparent;background:linear-gradient(135deg,var(--ac),rgba(100,180,255,.5),var(--gld),var(--ac)) border-box;background-size:300% 300%;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:ringShift 6s ease-in-out infinite;}
+        @keyframes ringShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+        .a-ring::after{content:'';position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(from 0deg,var(--acg),transparent,var(--gldg),transparent,var(--acg));filter:blur(16px);opacity:.6;animation:rr 10s linear infinite;}
         @keyframes rr{to{transform:rotate(360deg);}}
-        .ar::after{content:'';position:absolute;inset:-6px;border-radius:50%;background:linear-gradient(135deg,var(--acg),transparent,var(--gldg));filter:blur(14px);opacity:.7;animation:rr 8s linear infinite reverse;}
-        .av{width:114px;height:114px;border-radius:50%;overflow:hidden;position:relative;z-index:2;background:rgba(15,15,18,0.9);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.06);}
-        .av span{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:400;font-style:italic;color:var(--ac);letter-spacing:-.02em;}
-        .hn{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,7vw,2.3rem);font-weight:500;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px;background:linear-gradient(135deg,#fff 20%,rgba(255,255,255,.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-        .ht{font-size:.8rem;line-height:1.75;color:var(--tx2);font-weight:300;}
+        .a-pulse{position:absolute;inset:-20px;border-radius:50%;border:1px solid rgba(200,245,96,0.06);animation:pulse 4s ease-in-out infinite;pointer-events:none;}
+        .a-pulse2{position:absolute;inset:-36px;border-radius:50%;border:1px solid rgba(200,245,96,0.03);animation:pulse 4s ease-in-out infinite 1s;pointer-events:none;}
+        @keyframes pulse{0%,100%{transform:scale(.95);opacity:.3;}50%{transform:scale(1.05);opacity:.8;}}
+        .av{width:130px;height:130px;border-radius:50%;overflow:hidden;position:relative;z-index:2;border:2px solid rgba(255,255,255,0.08);box-shadow:0 0 40px rgba(200,245,96,0.08),0 0 80px rgba(0,0,0,0.5);}
+        .av img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(1.05) contrast(1.05);}
+        .hn{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,7.5vw,2.4rem);font-weight:500;letter-spacing:-.02em;line-height:1.15;margin-bottom:12px;background:linear-gradient(135deg,#fff 20%,rgba(255,255,255,.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+        .ht{font-size:.8rem;line-height:1.75;color:var(--t2);font-weight:300;}
         .ht em{font-family:'Playfair Display',serif;font-style:italic;font-size:.92rem;color:var(--ac);}
 
         /* STATS */
-        .stats{display:flex;gap:2px;margin-top:22px;background:var(--bg-card);border:1px solid var(--brd);border-radius:16px;padding:15px 8px;backdrop-filter:blur(24px);}
+        .stats{display:flex;gap:2px;margin-top:20px;background:var(--card);border:1px solid var(--b);border-radius:16px;padding:14px 8px;backdrop-filter:blur(24px);}
         .st{flex:1;text-align:center;position:relative;}
-        .st:not(:last-child)::after{content:'';position:absolute;right:0;top:4px;bottom:4px;width:1px;background:var(--brd);}
+        .st:not(:last-child)::after{content:'';position:absolute;right:0;top:4px;bottom:4px;width:1px;background:var(--b);}
         .sn{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;line-height:1;}
-        .sl{font-size:.55rem;letter-spacing:.13em;text-transform:uppercase;color:var(--txd);margin-top:5px;font-weight:500;}
+        .sl{font-size:.54rem;letter-spacing:.13em;text-transform:uppercase;color:var(--td);margin-top:4px;font-weight:500;}
+
+        /* COUNTER ANIMATION */
+        .sn[data-target]{transition:color .3s;}
 
         /* SECTION */
-        .sec{margin-top:34px;}
+        .sec{margin-top:32px;}
         .sh{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-        .shl{flex:1;height:1px;background:linear-gradient(90deg,var(--brd),transparent);}
-        .shr{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--brd));}
-        .sht{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--txd);font-weight:600;white-space:nowrap;}
+        .shl{flex:1;height:1px;background:linear-gradient(90deg,var(--b),transparent);}
+        .shr{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--b));}
+        .sht{font-size:.57rem;letter-spacing:.22em;text-transform:uppercase;color:var(--td);font-weight:600;white-space:nowrap;}
 
         /* SOCIAL */
         .sr{display:flex;gap:8px;}
-        .sb{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:15px 8px;background:var(--bg-card);border:1px solid var(--brd);border-radius:16px;text-decoration:none;color:var(--tx2);font-size:.6rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:all .4s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(12px);}
-        .sb:hover{background:var(--bg-card-h);border-color:var(--brd-h);transform:translateY(-3px);color:var(--tx);}
-        .sb svg{width:22px;height:22px;transition:transform .3s ease;}
-        .sb:hover svg{transform:scale(1.15);}
-        .sb.tg:hover{border-color:rgba(42,171,238,.3);box-shadow:0 8px 28px rgba(42,171,238,.1);}
-        .sb.ig:hover{border-color:rgba(225,48,108,.3);box-shadow:0 8px 28px rgba(225,48,108,.1);}
-        .sb.yt:hover{border-color:rgba(255,0,0,.25);box-shadow:0 8px 28px rgba(255,0,0,.08);}
-        .sb.tt:hover{border-color:rgba(255,255,255,.2);box-shadow:0 8px 28px rgba(255,255,255,.04);}
+        .sb{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:15px 8px;background:var(--card);border:1px solid var(--b);border-radius:16px;text-decoration:none;color:var(--t2);font-size:.58rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:all .4s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(12px);}
+        .sb:hover{background:var(--cardh);border-color:var(--bh);transform:translateY(-3px) scale(1.02);color:var(--t);}
+        .sb svg{width:22px;height:22px;transition:all .35s ease;}
+        .sb:hover svg{transform:scale(1.2);}
+        .sb.tg:hover{border-color:rgba(42,171,238,.3);box-shadow:0 8px 28px rgba(42,171,238,.12);}
+        .sb.ig:hover{border-color:rgba(225,48,108,.3);box-shadow:0 8px 28px rgba(225,48,108,.12);}
+        .sb.yt:hover{border-color:rgba(255,0,0,.25);box-shadow:0 8px 28px rgba(255,0,0,.1);}
+        .sb.tt:hover{border-color:rgba(255,255,255,.2);box-shadow:0 8px 28px rgba(255,255,255,.05);}
         .sb.tg svg{color:#2AABEE;}.sb.ig svg{color:#E1306C;}.sb.yt svg{color:#FF0000;}.sb.tt svg{color:#fff;}
 
         /* LM CARDS */
-        .lc{display:block;text-decoration:none;color:var(--tx);background:var(--bg-card);border:1px solid var(--brd);border-radius:20px;padding:22px;margin-bottom:10px;position:relative;overflow:hidden;transition:all .45s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(24px);}
+        .lc{display:block;text-decoration:none;color:var(--t);background:var(--card);border:1px solid var(--b);border-radius:20px;padding:22px;margin-bottom:10px;position:relative;overflow:hidden;transition:all .45s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(24px);}
         .lc::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--ac),var(--gld),var(--ac));background-size:200% 100%;animation:shm 4s ease-in-out infinite;opacity:0;transition:opacity .4s;}
         .lc:hover::before{opacity:1;}
         @keyframes shm{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
-        .lc:hover{border-color:var(--brd-h);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 30px var(--acg);}
-        .lb{display:inline-flex;align-items:center;gap:6px;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:600;margin-bottom:10px;}
-        .lb::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ac);box-shadow:0 0 8px var(--acg);}
-        .lt{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:500;line-height:1.35;margin-bottom:7px;}
-        .ld{font-size:.76rem;line-height:1.65;color:var(--tx2);font-weight:300;}
-        .lf{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--brd);}
-        .lm{display:flex;gap:14px;font-size:.63rem;color:var(--txd);font-weight:500;}
+        .lc:hover{border-color:var(--bh);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 30px var(--acg);}
+        .lb{display:inline-flex;align-items:center;gap:6px;font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:600;margin-bottom:10px;}
+        .lb::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ac);box-shadow:0 0 8px var(--acg);animation:dotPulse 2s ease-in-out infinite;}
+        @keyframes dotPulse{0%,100%{opacity:.5;transform:scale(.8);}50%{opacity:1;transform:scale(1.2);}}
+        .lt{font-family:'Playfair Display',serif;font-size:1.12rem;font-weight:500;line-height:1.35;margin-bottom:6px;}
+        .ld{font-size:.74rem;line-height:1.65;color:var(--t2);font-weight:300;}
+        .lf{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--b);}
+        .lm{display:flex;gap:14px;font-size:.62rem;color:var(--td);font-weight:500;}
         .la{width:30px;height:30px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;transition:all .3s ease;flex-shrink:0;}
         .la svg{width:13px;height:13px;color:var(--bg);}
-        .lc:hover .la{transform:translateX(4px);box-shadow:0 4px 14px var(--acg);}
+        .lc:hover .la{transform:translateX(4px) scale(1.1);box-shadow:0 4px 14px var(--acg);}
 
         /* PRODUCTS */
-        .pc{background:var(--bg-card);border:1px solid var(--brd);border-radius:20px;padding:20px;margin-bottom:8px;transition:all .4s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(12px);}
-        .pc:hover{border-color:var(--brd-h);transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.25);}
+        .pc{background:var(--card);border:1px solid var(--b);border-radius:20px;padding:20px;margin-bottom:8px;transition:all .4s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(12px);}
+        .pc:hover{border-color:var(--bh);transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.25);}
         .pr{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
         .pi{flex:1;}
         .pb{display:inline-block;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:4px 9px;border-radius:6px;margin-bottom:7px;}
         .pb.hit{background:var(--ac);color:var(--bg);}
         .pb.lim{background:rgba(255,80,80,.12);color:#ff7070;border:1px solid rgba(255,80,80,.18);}
-        .pn{font-family:'Playfair Display',serif;font-size:1.02rem;font-weight:500;line-height:1.3;margin-bottom:4px;}
-        .pd{font-size:.7rem;color:var(--tx2);line-height:1.55;font-weight:300;}
+        .pn{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;line-height:1.3;margin-bottom:4px;}
+        .pd{font-size:.69rem;color:var(--t2);line-height:1.55;font-weight:300;}
         .ppa{text-align:right;flex-shrink:0;}
-        .pop{font-size:.66rem;color:var(--txd);text-decoration:line-through;}
-        .pp{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:600;color:var(--ac);line-height:1;}
-        .ptg-w{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap;}
-        .ptg{font-size:.55rem;color:var(--txd);background:rgba(255,255,255,.04);border:1px solid var(--brd);padding:3px 9px;border-radius:7px;font-weight:500;}
-        .btn{display:block;width:100%;margin-top:14px;padding:13px;text-align:center;font-family:'Inter',sans-serif;font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-radius:12px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;}
+        .pop{font-size:.65rem;color:var(--td);text-decoration:line-through;}
+        .pp{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:var(--ac);line-height:1;}
+        .ptw{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap;}
+        .ptg{font-size:.54rem;color:var(--td);background:rgba(255,255,255,.04);border:1px solid var(--b);padding:3px 9px;border-radius:7px;font-weight:500;}
+        .btn{display:block;width:100%;margin-top:14px;padding:13px;text-align:center;font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-radius:12px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;}
         .btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .7s;}
         .btn:hover::before{left:100%;}
         .btn.ac{background:var(--ac);color:var(--bg);}
         .btn.ac:hover{background:var(--acd);transform:translateY(-2px);box-shadow:0 10px 28px var(--acg);}
-        .btn.gh{background:transparent;color:var(--tx2);border:1px solid var(--brd);}
-        .btn.gh:hover{background:var(--bg-card-h);border-color:var(--brd-h);color:var(--tx);}
-        .pc.ft{border-color:rgba(200,245,96,.18);background:linear-gradient(135deg,rgba(200,245,96,.03),var(--bg-card));}
+        .btn.gh{background:transparent;color:var(--t2);border:1px solid var(--b);}
+        .btn.gh:hover{background:var(--cardh);border-color:var(--bh);color:var(--t);}
+        .pc.ft{border-color:rgba(200,245,96,.18);background:linear-gradient(135deg,rgba(200,245,96,.03),var(--card));}
         .pc.ft:hover{box-shadow:0 16px 48px rgba(0,0,0,.35),0 0 36px rgba(200,245,96,.06);}
         .pc.vip{border-color:rgba(232,197,71,.22);background:linear-gradient(135deg,rgba(232,197,71,.05),rgba(0,0,0,.2));}
         .pc.vip .pp{color:var(--gld);}
         .pc.vip:hover{box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 36px var(--gldg);}
         .btn.gd{background:linear-gradient(135deg,var(--gld),#D4B65F);color:#0A0A0B;font-weight:800;}
         .btn.gd:hover{box-shadow:0 10px 28px var(--gldg);transform:translateY(-2px);}
-        .al{display:block;text-align:center;padding:14px;margin-top:8px;border:1px solid var(--brd);border-radius:14px;text-decoration:none;color:var(--tx2);font-size:.66rem;font-weight:600;letter-spacing:.08em;transition:all .35s ease;}
-        .al:hover{background:var(--bg-card);border-color:var(--brd-h);color:var(--tx);transform:translateY(-1px);}
-        .sup{display:flex;align-items:center;justify-content:center;gap:8px;padding:18px;margin-top:34px;text-decoration:none;color:var(--txd);font-size:.66rem;font-weight:500;letter-spacing:.05em;transition:color .3s;}
+        .al{display:block;text-align:center;padding:14px;margin-top:8px;border:1px solid var(--b);border-radius:14px;text-decoration:none;color:var(--t2);font-size:.65rem;font-weight:600;letter-spacing:.08em;transition:all .35s ease;}
+        .al:hover{background:var(--card);border-color:var(--bh);color:var(--t);transform:translateY(-1px);}
+        .sup{display:flex;align-items:center;justify-content:center;gap:8px;padding:18px;margin-top:32px;text-decoration:none;color:var(--td);font-size:.65rem;font-weight:500;letter-spacing:.05em;transition:color .3s;}
         .sup:hover{color:var(--ac);}
         .sup svg{width:15px;height:15px;}
-        .foot{text-align:center;padding:22px 0 8px;border-top:1px solid var(--brd);}
-        .fb{font-family:'Playfair Display',serif;font-size:.82rem;color:var(--txd);font-style:italic;}
+        .foot{text-align:center;padding:22px 0 8px;border-top:1px solid var(--b);}
+        .fb{font-family:'Playfair Display',serif;font-size:.82rem;color:var(--td);font-style:italic;}
         .fc{font-size:.52rem;color:rgba(255,255,255,.18);margin-top:5px;letter-spacing:.08em;}
-
-        /* REVEAL */
         .rv{opacity:0;transform:translateY(28px);transition:all .8s cubic-bezier(.16,1,.3,1);}
         .rv.vis{opacity:1;transform:translateY(0);}
-        .d1{transition-delay:.06s;}.d2{transition-delay:.12s;}.d3{transition-delay:.18s;}.d4{transition-delay:.24s;}
-
-        @media(max-width:380px){.container{padding:0 16px 60px;}.sb{padding:12px 6px;font-size:.55rem;}.sb svg{width:20px;height:20px;}.lc,.pc{padding:16px;}}
+        .d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}.d4{transition-delay:.32s;}
+        @media(max-width:380px){.ctn{padding:0 16px 60px;}.sb{padding:12px 6px;font-size:.54rem;}.sb svg{width:20px;height:20px;}.lc,.pc{padding:16px;}.aw{width:110px;height:110px;}.av{width:110px;height:110px;}}
     </style>
 </head>
 <body>
 
 <canvas id="neural"></canvas>
-<div class="vignette"></div>
+<div class="vig"></div>
 
-<div class="container">
-    <header class="header rv">
-        <div class="aw"><div class="ar"></div><div class="av"><span>АС</span></div></div>
+<div class="ctn">
+    <header class="hdr rv">
+        <div class="aw">
+            <div class="a-pulse2"></div>
+            <div class="a-pulse"></div>
+            <div class="a-ring"></div>
+            <div class="av"><img src="https://github.com/thebodymindcode/go/blob/main/photo_2026-01-18_13-49-08.jpg?raw=true" alt="Архитектура Сознания"></div>
+        </div>
         <h1 class="hn">Архитектура<br>Сознания</h1>
         <p class="ht">Проектирую внутренние состояния как структуры<br>Внимание · мышление · продуктивность · тело<br><em>Привожу к точке покоя</em></p>
     </header>
 
     <div class="stats rv d1">
-        <div class="st"><div class="sn">135M+</div><div class="sl">Просмотров</div></div>
-        <div class="st"><div class="sn">800+</div><div class="sl">Участников</div></div>
-        <div class="st"><div class="sn">92%</div><div class="sl">Результат</div></div>
+        <div class="st"><div class="sn" data-target="135" data-suffix="M+">0</div><div class="sl">Просмотров</div></div>
+        <div class="st"><div class="sn" data-target="800" data-suffix="+">0</div><div class="sl">Участников</div></div>
+        <div class="st"><div class="sn" data-target="92" data-suffix="%">0</div><div class="sl">Результат</div></div>
     </div>
 
     <div class="sec rv d2">
@@ -184,55 +173,14 @@
 
     <div class="sec rv d4">
         <div class="sh"><div class="shl"></div><span class="sht">Программы</span><div class="shr"></div></div>
-
-        <div class="pc ft">
-            <div class="pr"><div class="pi"><div class="pb hit">★ Хит продаж</div><div class="pn">Протокол остановки ума</div><div class="pd">28 дней · 16 мин/день. Перестройка мозга. Тревога ↓78%, ясность ↑85%.</div></div><div class="ppa"><div class="pop">5 900 ₽</div><div class="pp">2 990 ₽</div></div></div>
-            <div class="ptg-w"><span class="ptg">7 видео</span><span class="ptg">PDF 40 стр</span><span class="ptg">Чат</span><span class="ptg">Навсегда</span></div>
-            <a href="https://thebodymindcode.github.io/protocol" target="_blank" class="btn ac">Подробнее</a>
-        </div>
-
-        <div class="pc">
-            <div class="pr"><div class="pi"><div class="pn">За пределами заболеваний</div><div class="pd">90 мин: почему тело в режиме борьбы + практика переключения.</div></div><div class="ppa"><div class="pp">1 490 ₽</div></div></div>
-            <div class="ptg-w"><span class="ptg">90 мин</span><span class="ptg">Запись навсегда</span></div>
-            <a href="https://thebodymindcode.github.io/Beyond/" target="_blank" class="btn gh">Подробнее</a>
-        </div>
-
-        <div class="pc">
-            <div class="pr"><div class="pi"><div class="pn">Выбор</div><div class="pd">90 минут о решениях, которые удерживают вас на месте годами.</div></div><div class="ppa"><div class="pp">1 490 ₽</div></div></div>
-            <div class="ptg-w"><span class="ptg">90 мин</span><span class="ptg">Запись</span><span class="ptg">Чеклист</span></div>
-            <a href="https://thebodymindcode.github.io/choice/" target="_blank" class="btn gh">Подробнее</a>
-        </div>
-
-        <div class="pc">
-            <div class="pr"><div class="pi"><div class="pn">Код денег</div><div class="pd">14-дневный интенсив. Перепишите установки, блокирующие деньги.</div></div><div class="ppa"><div class="pp">5 900 ₽</div></div></div>
-            <div class="ptg-w"><span class="ptg">14 дней</span><span class="ptg">5 Zoom</span><span class="ptg">19 практик</span></div>
-            <a href="https://thebodymindcode.github.io/themoneycode/" target="_blank" class="btn gh">Подробнее</a>
-        </div>
-
-        <div class="pc">
-            <div class="pr"><div class="pi"><div class="pn">Внутренний Авторитет</div><div class="pd">Вернуть себе право решать. 3 встречи + техника программирования мозга.</div></div><div class="ppa"><div class="pp">4 900 ₽</div></div></div>
-            <div class="ptg-w"><span class="ptg">7 дней</span><span class="ptg">3 встречи</span><span class="ptg">Тетрадь</span></div>
-            <a href="https://thebodymindcode.github.io/authority/" target="_blank" class="btn gh">Подробнее</a>
-        </div>
-
-        <div class="pc">
-            <div class="pr"><div class="pi"><div class="pn">Код нового года</div><div class="pd">3 дня трансформации. Персональная фраза-код + утренний ритуал на год.</div></div><div class="ppa"><div class="pop">7 900 ₽</div><div class="pp">3 990 ₽</div></div></div>
-            <div class="ptg-w"><span class="ptg">3 дня</span><span class="ptg">Zoom</span><span class="ptg">6 практик</span></div>
-            <a href="https://thebodymindcode.github.io/NewYearCode/" target="_blank" class="btn gh">Подробнее</a>
-        </div>
-
-        <div class="pc">
-            <div class="pr"><div class="pi"><div class="pb lim">🔥 Осталось 3 места</div><div class="pn">Сессия с Дарьей</div><div class="pd">60–90 мин точечной работы 1 на 1. Трансформация прямо на сессии.</div></div><div class="ppa"><div class="pop">15 000 ₽</div><div class="pp">12 500 ₽</div></div></div>
-            <div class="ptg-w"><span class="ptg">1 на 1</span><span class="ptg">Запись</span><span class="ptg">Навсегда</span></div>
-            <a href="https://thebodymindcode.github.io/session1/" target="_blank" class="btn ac">Записаться</a>
-        </div>
-
-        <div class="pc vip">
-            <div class="pr"><div class="pi"><div class="pb" style="background:var(--gld);color:#0A0A0B;">👑 VIP · 1 месяц</div><div class="pn">VIP-сопровождение</div><div class="pd">Персональная трансформация. 4 сессии, Human Design, все программы, личный чат 30 дней.</div></div><div class="ppa"><div class="pp" style="color:var(--gld);">80 000 ₽</div></div></div>
-            <div class="ptg-w"><span class="ptg">4 сессии</span><span class="ptg">Human Design</span><span class="ptg">Все программы</span></div>
-            <a href="https://payform.ru/dtaGdlM/" target="_blank" class="btn gd">Записаться</a>
-        </div>
-
+        <div class="pc ft"><div class="pr"><div class="pi"><div class="pb hit">★ Хит продаж</div><div class="pn">Протокол остановки ума</div><div class="pd">28 дней · 16 мин/день. Перестройка мозга. Тревога ↓78%, ясность ↑85%.</div></div><div class="ppa"><div class="pop">5 900 ₽</div><div class="pp">2 990 ₽</div></div></div><div class="ptw"><span class="ptg">7 видео</span><span class="ptg">PDF 40 стр</span><span class="ptg">Чат</span><span class="ptg">Навсегда</span></div><a href="https://thebodymindcode.github.io/protocol" target="_blank" class="btn ac">Подробнее</a></div>
+        <div class="pc"><div class="pr"><div class="pi"><div class="pn">За пределами заболеваний</div><div class="pd">90 мин: почему тело в режиме борьбы + практика переключения.</div></div><div class="ppa"><div class="pp">1 490 ₽</div></div></div><div class="ptw"><span class="ptg">90 мин</span><span class="ptg">Запись навсегда</span></div><a href="https://thebodymindcode.github.io/Beyond/" target="_blank" class="btn gh">Подробнее</a></div>
+        <div class="pc"><div class="pr"><div class="pi"><div class="pn">Выбор</div><div class="pd">90 минут о решениях, которые удерживают вас на месте годами.</div></div><div class="ppa"><div class="pp">1 490 ₽</div></div></div><div class="ptw"><span class="ptg">90 мин</span><span class="ptg">Запись</span><span class="ptg">Чеклист</span></div><a href="https://thebodymindcode.github.io/choice/" target="_blank" class="btn gh">Подробнее</a></div>
+        <div class="pc"><div class="pr"><div class="pi"><div class="pn">Код денег</div><div class="pd">14-дневный интенсив. Перепишите установки, блокирующие деньги.</div></div><div class="ppa"><div class="pp">5 900 ₽</div></div></div><div class="ptw"><span class="ptg">14 дней</span><span class="ptg">5 Zoom</span><span class="ptg">19 практик</span></div><a href="https://thebodymindcode.github.io/themoneycode/" target="_blank" class="btn gh">Подробнее</a></div>
+        <div class="pc"><div class="pr"><div class="pi"><div class="pn">Внутренний Авторитет</div><div class="pd">Вернуть себе право решать. 3 встречи + техника программирования мозга.</div></div><div class="ppa"><div class="pp">4 900 ₽</div></div></div><div class="ptw"><span class="ptg">7 дней</span><span class="ptg">3 встречи</span><span class="ptg">Тетрадь</span></div><a href="https://thebodymindcode.github.io/authority/" target="_blank" class="btn gh">Подробнее</a></div>
+        <div class="pc"><div class="pr"><div class="pi"><div class="pn">Код нового года</div><div class="pd">3 дня трансформации. Персональная фраза-код + утренний ритуал на год.</div></div><div class="ppa"><div class="pop">7 900 ₽</div><div class="pp">3 990 ₽</div></div></div><div class="ptw"><span class="ptg">3 дня</span><span class="ptg">Zoom</span><span class="ptg">6 практик</span></div><a href="https://thebodymindcode.github.io/NewYearCode/" target="_blank" class="btn gh">Подробнее</a></div>
+        <div class="pc"><div class="pr"><div class="pi"><div class="pb lim">🔥 Осталось 3 места</div><div class="pn">Сессия с Дарьей</div><div class="pd">60–90 мин точечной работы 1 на 1. Трансформация прямо на сессии.</div></div><div class="ppa"><div class="pop">15 000 ₽</div><div class="pp">12 500 ₽</div></div></div><div class="ptw"><span class="ptg">1 на 1</span><span class="ptg">Запись</span><span class="ptg">Навсегда</span></div><a href="https://thebodymindcode.github.io/session1/" target="_blank" class="btn ac">Записаться</a></div>
+        <div class="pc vip"><div class="pr"><div class="pi"><div class="pb" style="background:var(--gld);color:#0A0A0B;">👑 VIP · 1 месяц</div><div class="pn">VIP-сопровождение</div><div class="pd">Персональная трансформация. 4 сессии, Human Design, все программы, личный чат 30 дней.</div></div><div class="ppa"><div class="pp" style="color:var(--gld);">80 000 ₽</div></div></div><div class="ptw"><span class="ptg">4 сессии</span><span class="ptg">Human Design</span><span class="ptg">Все программы</span></div><a href="https://payform.ru/dtaGdlM/" target="_blank" class="btn gd">Записаться</a></div>
         <a href="https://thebodymindcode.github.io/shop/" target="_blank" class="al">Все программы и сравнение →</a>
     </div>
 
@@ -241,182 +189,227 @@
 </div>
 
 <script>
-// === NEURAL NETWORK BACKGROUND ===
-const canvas = document.getElementById('neural');
-const ctx = canvas.getContext('2d');
-let W, H, neurons = [], mouse = {x: -999, y: -999};
-const NEURON_COUNT = 80;
-const CONNECTION_DIST = 140;
-const MOUSE_DIST = 180;
+// ========== NEURAL NETWORK ==========
+const C = document.getElementById('neural');
+const X = C.getContext('2d');
+let W, H, mx = -999, my = -999;
 
-function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-}
+function resize() { W = C.width = innerWidth; H = C.height = innerHeight; }
 resize();
-window.addEventListener('resize', resize);
+addEventListener('resize', resize);
+addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+addEventListener('touchmove', e => { mx = e.touches[0].clientX; my = e.touches[0].clientY; }, {passive:true});
+addEventListener('mouseleave', () => { mx = my = -999; });
 
-// Track mouse/touch
-document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-document.addEventListener('touchmove', e => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; }, {passive: true});
-document.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
-
-// Colors
-const colors = [
-    {r:200, g:245, b:96},   // accent green
-    {r:100, g:180, b:255},   // blue
-    {r:232, g:197, b:71},    // gold
-    {r:160, g:220, b:180},   // soft green
+const cols = [
+    {r:200,g:245,b:96},  // green
+    {r:100,g:180,b:255}, // blue
+    {r:232,g:197,b:71},  // gold
+    {r:140,g:220,b:170}, // mint
+    {r:180,g:140,b:255}, // purple
 ];
 
+const N = 100; // neurons
+const CONN = 150;
+const MOUSE_R = 200;
+const neurons = [];
+
 class Neuron {
-    constructor() {
-        this.x = Math.random() * W;
-        this.y = Math.random() * H;
-        this.vx = (Math.random() - 0.5) * 0.35;
-        this.vy = (Math.random() - 0.5) * 0.35;
-        this.r = Math.random() * 2 + 1;
-        this.col = colors[Math.floor(Math.random() * colors.length)];
-        this.pulse = Math.random() * Math.PI * 2;
-        this.pulseSpeed = 0.008 + Math.random() * 0.015;
+    constructor(){
+        this.x = Math.random()*W;
+        this.y = Math.random()*H;
+        this.vx = (Math.random()-.5)*.4;
+        this.vy = (Math.random()-.5)*.4;
+        this.r = Math.random()*2.2+.8;
+        this.c = cols[~~(Math.random()*cols.length)];
+        this.ph = Math.random()*6.28;
+        this.ps = .01+Math.random()*.018;
+        this.bright = 0; // for click burst
     }
-    update() {
-        this.pulse += this.pulseSpeed;
+    update(){
+        this.ph += this.ps;
+        this.bright *= .95;
         this.x += this.vx;
         this.y += this.vy;
-        if (this.x < -20) this.x = W + 20;
-        if (this.x > W + 20) this.x = -20;
-        if (this.y < -20) this.y = H + 20;
-        if (this.y > H + 20) this.y = -20;
+        if(this.x<-30) this.x=W+30;
+        if(this.x>W+30) this.x=-30;
+        if(this.y<-30) this.y=H+30;
+        if(this.y>H+30) this.y=-30;
 
-        // Mouse repulsion
-        const dx = this.x - mouse.x;
-        const dy = this.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < MOUSE_DIST && dist > 0) {
-            const force = (MOUSE_DIST - dist) / MOUSE_DIST * 0.015;
-            this.vx += (dx / dist) * force;
-            this.vy += (dy / dist) * force;
+        // Mouse attraction (gentle pull toward center area near mouse)
+        if(mx>0){
+            const dx=this.x-mx, dy=this.y-my;
+            const d=Math.sqrt(dx*dx+dy*dy);
+            if(d<MOUSE_R && d>10){
+                // Orbit-like: attract slightly but add perpendicular force
+                const f=(MOUSE_R-d)/MOUSE_R*.008;
+                this.vx -= (dx/d)*f;
+                this.vy -= (dy/d)*f;
+                // Perpendicular swirl
+                this.vx += (-dy/d)*f*.5;
+                this.vy += (dx/d)*f*.5;
+            }
         }
-
-        // Damping
-        this.vx *= 0.998;
-        this.vy *= 0.998;
+        this.vx*=.997;
+        this.vy*=.997;
     }
-    draw() {
-        const glow = Math.sin(this.pulse) * 0.3 + 0.5;
-        const alpha = 0.25 + glow * 0.35;
-        const {r, g, b} = this.col;
-
-        // Glow
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r * 4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r},${g},${b},${alpha * 0.08})`;
-        ctx.fill();
-
+    draw(){
+        const g=Math.sin(this.ph)*.3+.5;
+        const a=.2+g*.35+this.bright;
+        const {r,g:gg,b}=this.c;
+        // Outer glow
+        X.beginPath();
+        X.arc(this.x,this.y,this.r*5,0,6.28);
+        X.fillStyle=`rgba(${r},${gg},${b},${a*.06})`;
+        X.fill();
         // Core
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r * (0.8 + glow * 0.4), 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
-        ctx.fill();
+        X.beginPath();
+        X.arc(this.x,this.y,this.r*(.8+g*.5+this.bright*2),0,6.28);
+        X.fillStyle=`rgba(${r},${gg},${b},${Math.min(a,.85)})`;
+        X.fill();
     }
 }
 
-for (let i = 0; i < NEURON_COUNT; i++) neurons.push(new Neuron());
+for(let i=0;i<N;i++) neurons.push(new Neuron());
 
-// Firing signals
-let signals = [];
-function maybeFireSignal() {
-    if (signals.length > 6 || Math.random() > 0.015) return;
-    // Pick two connected neurons
-    for (let i = 0; i < neurons.length; i++) {
-        for (let j = i + 1; j < neurons.length; j++) {
-            const dx = neurons[i].x - neurons[j].x;
-            const dy = neurons[i].y - neurons[j].y;
-            const d = Math.sqrt(dx*dx + dy*dy);
-            if (d < CONNECTION_DIST * 0.8 && Math.random() < 0.02) {
-                signals.push({
-                    from: neurons[i], to: neurons[j],
-                    t: 0, speed: 0.02 + Math.random() * 0.02,
-                    col: colors[Math.floor(Math.random() * colors.length)]
-                });
+// Signals
+let sigs=[];
+function maybeFire(){
+    if(sigs.length>10||Math.random()>.02) return;
+    for(let i=0;i<neurons.length;i++){
+        for(let j=i+1;j<neurons.length;j++){
+            const dx=neurons[i].x-neurons[j].x, dy=neurons[i].y-neurons[j].y;
+            const d=Math.sqrt(dx*dx+dy*dy);
+            if(d<CONN*.7 && Math.random()<.025){
+                sigs.push({a:neurons[i],b:neurons[j],t:0,sp:.018+Math.random()*.025,c:cols[~~(Math.random()*cols.length)]});
                 return;
             }
         }
     }
 }
 
-function animate() {
-    ctx.clearRect(0, 0, W, H);
+// Click burst effect
+addEventListener('click', e => {
+    neurons.forEach(n => {
+        const dx=n.x-e.clientX, dy=n.y-e.clientY;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<250){
+            const f=(250-d)/250;
+            n.bright = f;
+            n.vx += (dx/d)*f*3;
+            n.vy += (dy/d)*f*3;
+        }
+    });
+    // Spawn burst signals
+    for(let i=0;i<5;i++){
+        const close=neurons.filter(n=>{const dx=n.x-e.clientX,dy=n.y-e.clientY;return Math.sqrt(dx*dx+dy*dy)<200;});
+        if(close.length>=2){
+            const a=close[~~(Math.random()*close.length)];
+            let b=close[~~(Math.random()*close.length)];
+            if(a!==b) sigs.push({a,b,t:0,sp:.03+Math.random()*.03,c:cols[~~(Math.random()*cols.length)]});
+        }
+    }
+});
 
-    // Update
-    neurons.forEach(n => n.update());
+function frame(){
+    X.clearRect(0,0,W,H);
+
+    // Center attractor (subtle gravity toward page center)
+    const cx=W/2, cy=H*.3;
+    neurons.forEach(n => {
+        const dx=n.x-cx, dy=n.y-cy;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d>200){
+            n.vx -= (dx/d)*.003;
+            n.vy -= (dy/d)*.003;
+        }
+        n.update();
+    });
 
     // Connections
-    for (let i = 0; i < neurons.length; i++) {
-        for (let j = i + 1; j < neurons.length; j++) {
-            const dx = neurons[i].x - neurons[j].x;
-            const dy = neurons[i].y - neurons[j].y;
-            const d = Math.sqrt(dx*dx + dy*dy);
-            if (d < CONNECTION_DIST) {
-                const alpha = (1 - d / CONNECTION_DIST) * 0.08;
-                const r1 = neurons[i].col, r2 = neurons[j].col;
-                const mr = (r1.r + r2.r) >> 1;
-                const mg = (r1.g + r2.g) >> 1;
-                const mb = (r1.b + r2.b) >> 1;
-                ctx.beginPath();
-                ctx.moveTo(neurons[i].x, neurons[i].y);
-                ctx.lineTo(neurons[j].x, neurons[j].y);
-                ctx.strokeStyle = `rgba(${mr},${mg},${mb},${alpha})`;
-                ctx.lineWidth = 0.5;
-                ctx.stroke();
+    for(let i=0;i<neurons.length;i++){
+        for(let j=i+1;j<neurons.length;j++){
+            const dx=neurons[i].x-neurons[j].x, dy=neurons[i].y-neurons[j].y;
+            const d=Math.sqrt(dx*dx+dy*dy);
+            if(d<CONN){
+                const a=(1-d/CONN)*.09;
+                const c1=neurons[i].c, c2=neurons[j].c;
+                X.beginPath();
+                X.moveTo(neurons[i].x,neurons[i].y);
+                X.lineTo(neurons[j].x,neurons[j].y);
+                X.strokeStyle=`rgba(${(c1.r+c2.r)>>1},${(c1.g+c2.g)>>1},${(c1.b+c2.b)>>1},${a})`;
+                X.lineWidth=.6;
+                X.stroke();
             }
         }
     }
 
-    // Draw neurons
-    neurons.forEach(n => n.draw());
+    neurons.forEach(n=>n.draw());
 
     // Signals
-    maybeFireSignal();
-    signals = signals.filter(s => {
-        s.t += s.speed;
-        if (s.t >= 1) return false;
-        const x = s.from.x + (s.to.x - s.from.x) * s.t;
-        const y = s.from.y + (s.to.y - s.from.y) * s.t;
-        const {r, g, b} = s.col;
-        const a = Math.sin(s.t * Math.PI) * 0.7;
-        ctx.beginPath();
-        ctx.arc(x, y, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
-        ctx.fill();
-        // Trail glow
-        ctx.beginPath();
-        ctx.arc(x, y, 8, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r},${g},${b},${a * 0.15})`;
-        ctx.fill();
+    maybeFire();
+    sigs=sigs.filter(s=>{
+        s.t+=s.sp;
+        if(s.t>=1){
+            // Hit target — flash it
+            s.b.bright=Math.max(s.b.bright,.4);
+            return false;
+        }
+        const x=s.a.x+(s.b.x-s.a.x)*s.t;
+        const y=s.a.y+(s.b.y-s.a.y)*s.t;
+        const {r,g,b}=s.c;
+        const al=Math.sin(s.t*3.14)*.8;
+        // Trail
+        X.beginPath();
+        X.arc(x,y,10,0,6.28);
+        X.fillStyle=`rgba(${r},${g},${b},${al*.1})`;
+        X.fill();
+        // Core
+        X.beginPath();
+        X.arc(x,y,2.5,0,6.28);
+        X.fillStyle=`rgba(${r},${g},${b},${al})`;
+        X.fill();
         return true;
     });
 
     // Mouse glow
-    if (mouse.x > 0 && mouse.y > 0) {
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 60, 0, Math.PI * 2);
-        const mg = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 60);
-        mg.addColorStop(0, 'rgba(200,245,96,0.04)');
-        mg.addColorStop(1, 'transparent');
-        ctx.fillStyle = mg;
-        ctx.fill();
+    if(mx>0&&my>0){
+        const mg=X.createRadialGradient(mx,my,0,mx,my,80);
+        mg.addColorStop(0,'rgba(200,245,96,0.05)');
+        mg.addColorStop(1,'transparent');
+        X.beginPath();
+        X.arc(mx,my,80,0,6.28);
+        X.fillStyle=mg;
+        X.fill();
     }
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(frame);
 }
-animate();
+frame();
 
-// Reveal observer
+// ========== COUNTER ANIMATION ==========
+const counterObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if(!e.isIntersecting) return;
+        const el = e.target;
+        const target = +el.dataset.target;
+        const suffix = el.dataset.suffix || '';
+        let current = 0;
+        const step = Math.ceil(target / 40);
+        const timer = setInterval(() => {
+            current += step;
+            if(current >= target){ current = target; clearInterval(timer); }
+            el.textContent = current + suffix;
+        }, 30);
+        counterObs.unobserve(el);
+    });
+}, {threshold:.5});
+document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
+
+// ========== REVEAL ==========
 const obs = new IntersectionObserver(e => {
-    e.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-}, {threshold: .08});
+    e.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
+}, {threshold:.08});
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 </script>
 
