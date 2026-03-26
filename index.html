@@ -14,168 +14,178 @@
         body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--t);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
         body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.025;pointer-events:none;z-index:10000;}
         #neural{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
-        .vig{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 50% 30%,transparent 20%,rgba(6,6,8,0.55) 70%,rgba(6,6,8,0.85) 100%);pointer-events:none;z-index:1;}
+        .vig{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 50% 30%,transparent 20%,rgba(6,6,8,0.5) 65%,rgba(6,6,8,0.85) 100%);pointer-events:none;z-index:1;}
         .ctn{max-width:460px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:2;}
-
-        /* HEADER */
-        .hdr{text-align:center;padding:48px 0 28px;position:relative;}
-        .aw{position:relative;width:130px;height:130px;margin:0 auto 20px;}
-        .a-ring{position:absolute;inset:-8px;border-radius:50%;border:2px solid transparent;background:linear-gradient(135deg,var(--ac),rgba(100,180,255,.5),var(--gld),var(--ac)) border-box;background-size:300% 300%;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:ringShift 6s ease-in-out infinite;}
-        @keyframes ringShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+        .hdr{text-align:center;padding:48px 0 12px;}
+        .aw{position:relative;width:140px;height:140px;margin:0 auto 22px;}
+        .a-ring{position:absolute;inset:-6px;border-radius:50%;border:2px solid transparent;background:linear-gradient(135deg,var(--ac),rgba(100,180,255,.5),var(--gld),var(--ac)) border-box;background-size:300% 300%;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:rs 6s ease-in-out infinite;}
+        @keyframes rs{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
         .a-ring::after{content:'';position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(from 0deg,var(--acg),transparent,var(--gldg),transparent,var(--acg));filter:blur(16px);opacity:.6;animation:rr 10s linear infinite;}
         @keyframes rr{to{transform:rotate(360deg);}}
-        .a-pulse{position:absolute;inset:-20px;border-radius:50%;border:1px solid rgba(200,245,96,0.06);animation:pulse 4s ease-in-out infinite;pointer-events:none;}
-        .a-pulse2{position:absolute;inset:-36px;border-radius:50%;border:1px solid rgba(200,245,96,0.03);animation:pulse 4s ease-in-out infinite 1s;pointer-events:none;}
-        @keyframes pulse{0%,100%{transform:scale(.95);opacity:.3;}50%{transform:scale(1.05);opacity:.8;}}
-        .av{width:130px;height:130px;border-radius:50%;overflow:hidden;position:relative;z-index:2;border:2px solid rgba(255,255,255,0.08);box-shadow:0 0 40px rgba(200,245,96,0.08),0 0 80px rgba(0,0,0,0.5);}
-        .av img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(1.05) contrast(1.05);}
+        .a-p{position:absolute;border-radius:50%;border:1px solid rgba(200,245,96,0.05);pointer-events:none;}
+        .a-p1{inset:-18px;animation:ap 4s ease-in-out infinite;}
+        .a-p2{inset:-34px;animation:ap 4s ease-in-out infinite 1s;border-color:rgba(200,245,96,0.025);}
+        @keyframes ap{0%,100%{transform:scale(.95);opacity:.3;}50%{transform:scale(1.05);opacity:.8;}}
+        .av{width:140px;height:140px;border-radius:50%;overflow:hidden;position:relative;z-index:2;box-shadow:0 0 40px rgba(200,245,96,0.06),0 0 80px rgba(0,0,0,0.5);}
+        .av img{width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;transform:scale(1.08);}
         .hn{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,7.5vw,2.4rem);font-weight:500;letter-spacing:-.02em;line-height:1.15;margin-bottom:12px;background:linear-gradient(135deg,#fff 20%,rgba(255,255,255,.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
         .ht{font-size:.8rem;line-height:1.75;color:var(--t2);font-weight:300;}
         .ht em{font-family:'Playfair Display',serif;font-style:italic;font-size:.92rem;color:var(--ac);}
 
-        /* STATS */
-        .stats{display:flex;gap:2px;margin-top:20px;background:var(--card);border:1px solid var(--b);border-radius:16px;padding:14px 8px;backdrop-filter:blur(24px);}
-        .st{flex:1;text-align:center;position:relative;}
-        .st:not(:last-child)::after{content:'';position:absolute;right:0;top:4px;bottom:4px;width:1px;background:var(--b);}
-        .sn{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;line-height:1;}
-        .sl{font-size:.54rem;letter-spacing:.13em;text-transform:uppercase;color:var(--td);margin-top:4px;font-weight:500;}
+        /* TAGLINE */
+        .tgl{text-align:center;margin-top:20px;padding:18px 20px;background:var(--card);border:1px solid var(--b);border-radius:16px;backdrop-filter:blur(24px);}
+        .tgl-big{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:500;color:var(--t);line-height:1.45;letter-spacing:-.01em;}
+        .tgl-big .hl{color:var(--ac);}
+        .tgl-sub{font-size:.68rem;color:var(--td);margin-top:8px;font-weight:400;letter-spacing:.03em;}
 
-        /* COUNTER ANIMATION */
-        .sn[data-target]{transition:color .3s;}
-
-        /* SECTION */
         .sec{margin-top:32px;}
         .sh{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
         .shl{flex:1;height:1px;background:linear-gradient(90deg,var(--b),transparent);}
         .shr{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--b));}
         .sht{font-size:.57rem;letter-spacing:.22em;text-transform:uppercase;color:var(--td);font-weight:600;white-space:nowrap;}
 
-        /* SOCIAL */
+        /* SOCIAL — premium style */
         .sr{display:flex;gap:8px;}
-        .sb{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:15px 8px;background:var(--card);border:1px solid var(--b);border-radius:16px;text-decoration:none;color:var(--t2);font-size:.58rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:all .4s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(12px);}
-        .sb:hover{background:var(--cardh);border-color:var(--bh);transform:translateY(-3px) scale(1.02);color:var(--t);}
-        .sb svg{width:22px;height:22px;transition:all .35s ease;}
-        .sb:hover svg{transform:scale(1.2);}
-        .sb.tg:hover{border-color:rgba(42,171,238,.3);box-shadow:0 8px 28px rgba(42,171,238,.12);}
-        .sb.ig:hover{border-color:rgba(225,48,108,.3);box-shadow:0 8px 28px rgba(225,48,108,.12);}
-        .sb.yt:hover{border-color:rgba(255,0,0,.25);box-shadow:0 8px 28px rgba(255,0,0,.1);}
-        .sb.tt:hover{border-color:rgba(255,255,255,.2);box-shadow:0 8px 28px rgba(255,255,255,.05);}
-        .sb.tg svg{color:#2AABEE;}.sb.ig svg{color:#E1306C;}.sb.yt svg{color:#FF0000;}.sb.tt svg{color:#fff;}
+        .sb{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 8px 14px;background:var(--card);border:1px solid var(--b);border-radius:18px;text-decoration:none;color:var(--t2);font-size:.52rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:all .4s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(12px);position:relative;overflow:hidden;}
+        .sb::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:1px;background:transparent;transition:all .4s ease;}
+        .sb:hover{background:var(--cardh);border-color:var(--bh);transform:translateY(-4px);color:var(--t);}
+        .sb:hover::after{background:currentColor;opacity:.3;left:30%;right:30%;}
+        .sb .ico{width:28px;height:28px;transition:all .4s ease;opacity:.7;}
+        .sb:hover .ico{transform:scale(1.15) translateY(-2px);opacity:1;}
+        .sb.tg:hover{border-color:rgba(42,171,238,.25);box-shadow:0 12px 32px rgba(42,171,238,.1);}
+        .sb.tg:hover .ico{color:#2AABEE;}
+        .sb.ig:hover{border-color:rgba(225,48,108,.25);box-shadow:0 12px 32px rgba(225,48,108,.1);}
+        .sb.ig:hover .ico{color:#E1306C;}
+        .sb.yt:hover{border-color:rgba(255,0,0,.2);box-shadow:0 12px 32px rgba(255,0,0,.08);}
+        .sb.yt:hover .ico{color:#FF0000;}
+        .sb.tt:hover{border-color:rgba(255,255,255,.15);box-shadow:0 12px 32px rgba(255,255,255,.04);}
+        .sb.tt:hover .ico{color:#fff;}
 
-        /* LM CARDS */
+        /* CARDS */
         .lc{display:block;text-decoration:none;color:var(--t);background:var(--card);border:1px solid var(--b);border-radius:20px;padding:22px;margin-bottom:10px;position:relative;overflow:hidden;transition:all .45s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(24px);}
         .lc::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--ac),var(--gld),var(--ac));background-size:200% 100%;animation:shm 4s ease-in-out infinite;opacity:0;transition:opacity .4s;}
         .lc:hover::before{opacity:1;}
         @keyframes shm{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
         .lc:hover{border-color:var(--bh);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 30px var(--acg);}
         .lb{display:inline-flex;align-items:center;gap:6px;font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:600;margin-bottom:10px;}
-        .lb::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ac);box-shadow:0 0 8px var(--acg);animation:dotPulse 2s ease-in-out infinite;}
-        @keyframes dotPulse{0%,100%{opacity:.5;transform:scale(.8);}50%{opacity:1;transform:scale(1.2);}}
+        .lb::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ac);box-shadow:0 0 8px var(--acg);animation:dp 2s ease-in-out infinite;}
+        @keyframes dp{0%,100%{opacity:.5;transform:scale(.8);}50%{opacity:1;transform:scale(1.2);}}
+        .lb.book-b{color:var(--gld);}.lb.book-b::before{background:var(--gld);box-shadow:0 0 8px var(--gldg);}
         .lt{font-family:'Playfair Display',serif;font-size:1.12rem;font-weight:500;line-height:1.35;margin-bottom:6px;}
         .ld{font-size:.74rem;line-height:1.65;color:var(--t2);font-weight:300;}
-        .lf{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--b);}
-        .lm{display:flex;gap:14px;font-size:.62rem;color:var(--td);font-weight:500;}
-        .la{width:30px;height:30px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;transition:all .3s ease;flex-shrink:0;}
-        .la svg{width:13px;height:13px;color:var(--bg);}
-        .lc:hover .la{transform:translateX(4px) scale(1.1);box-shadow:0 4px 14px var(--acg);}
-
-        /* PRODUCTS */
+        .lf{display:flex;gap:10px;align-items:center;margin-top:14px;font-size:.62rem;color:var(--td);font-weight:500;}
+        .lf span{opacity:.7;}
+        .card-cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:16px;padding:14px 20px;background:var(--ac);color:var(--bg);font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-radius:12px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;}
+        .card-cta::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transition:left .6s;}
+        .lc:hover .card-cta{background:var(--acd);transform:translateY(-1px);box-shadow:0 8px 24px var(--acg);}
+        .lc:hover .card-cta::before{left:100%;}
+        .card-cta svg{width:14px;height:14px;transition:transform .3s ease;}
+        .lc:hover .card-cta svg{transform:translateX(3px);}
+        .card-cta.gold{background:linear-gradient(135deg,var(--gld),#D4B65F);color:#0A0A0B;}
+        .lc:hover .card-cta.gold{box-shadow:0 8px 24px var(--gldg);}
+        .lc.book-card{border-color:rgba(232,197,71,.15);}.lc.book-card::before{background:linear-gradient(90deg,var(--gld),var(--ac),var(--gld));}.lc.book-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 30px var(--gldg);}
+        .book-price{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--gld);}
         .pc{background:var(--card);border:1px solid var(--b);border-radius:20px;padding:20px;margin-bottom:8px;transition:all .4s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(12px);}
         .pc:hover{border-color:var(--bh);transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.25);}
-        .pr{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
-        .pi{flex:1;}
+        .pr{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}.pi{flex:1;}
         .pb{display:inline-block;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:4px 9px;border-radius:6px;margin-bottom:7px;}
-        .pb.hit{background:var(--ac);color:var(--bg);}
-        .pb.lim{background:rgba(255,80,80,.12);color:#ff7070;border:1px solid rgba(255,80,80,.18);}
+        .pb.hit{background:var(--ac);color:var(--bg);}.pb.lim{background:rgba(255,80,80,.12);color:#ff7070;border:1px solid rgba(255,80,80,.18);}
         .pn{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;line-height:1.3;margin-bottom:4px;}
         .pd{font-size:.69rem;color:var(--t2);line-height:1.55;font-weight:300;}
-        .ppa{text-align:right;flex-shrink:0;}
-        .pop{font-size:.65rem;color:var(--td);text-decoration:line-through;}
+        .ppa{text-align:right;flex-shrink:0;}.pop{font-size:.65rem;color:var(--td);text-decoration:line-through;}
         .pp{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:var(--ac);line-height:1;}
         .ptw{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap;}
         .ptg{font-size:.54rem;color:var(--td);background:rgba(255,255,255,.04);border:1px solid var(--b);padding:3px 9px;border-radius:7px;font-weight:500;}
         .btn{display:block;width:100%;margin-top:14px;padding:13px;text-align:center;font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-radius:12px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;}
         .btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .7s;}
         .btn:hover::before{left:100%;}
-        .btn.ac{background:var(--ac);color:var(--bg);}
-        .btn.ac:hover{background:var(--acd);transform:translateY(-2px);box-shadow:0 10px 28px var(--acg);}
-        .btn.gh{background:transparent;color:var(--t2);border:1px solid var(--b);}
-        .btn.gh:hover{background:var(--cardh);border-color:var(--bh);color:var(--t);}
-        .pc.ft{border-color:rgba(200,245,96,.18);background:linear-gradient(135deg,rgba(200,245,96,.03),var(--card));}
-        .pc.ft:hover{box-shadow:0 16px 48px rgba(0,0,0,.35),0 0 36px rgba(200,245,96,.06);}
-        .pc.vip{border-color:rgba(232,197,71,.22);background:linear-gradient(135deg,rgba(232,197,71,.05),rgba(0,0,0,.2));}
-        .pc.vip .pp{color:var(--gld);}
-        .pc.vip:hover{box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 36px var(--gldg);}
-        .btn.gd{background:linear-gradient(135deg,var(--gld),#D4B65F);color:#0A0A0B;font-weight:800;}
-        .btn.gd:hover{box-shadow:0 10px 28px var(--gldg);transform:translateY(-2px);}
-        .al{display:block;text-align:center;padding:14px;margin-top:8px;border:1px solid var(--b);border-radius:14px;text-decoration:none;color:var(--t2);font-size:.65rem;font-weight:600;letter-spacing:.08em;transition:all .35s ease;}
-        .al:hover{background:var(--card);border-color:var(--bh);color:var(--t);transform:translateY(-1px);}
-        .sup{display:flex;align-items:center;justify-content:center;gap:8px;padding:18px;margin-top:32px;text-decoration:none;color:var(--td);font-size:.65rem;font-weight:500;letter-spacing:.05em;transition:color .3s;}
-        .sup:hover{color:var(--ac);}
-        .sup svg{width:15px;height:15px;}
-        .foot{text-align:center;padding:22px 0 8px;border-top:1px solid var(--b);}
-        .fb{font-family:'Playfair Display',serif;font-size:.82rem;color:var(--td);font-style:italic;}
-        .fc{font-size:.52rem;color:rgba(255,255,255,.18);margin-top:5px;letter-spacing:.08em;}
-        .rv{opacity:0;transform:translateY(28px);transition:all .8s cubic-bezier(.16,1,.3,1);}
-        .rv.vis{opacity:1;transform:translateY(0);}
+        .btn.ac{background:var(--ac);color:var(--bg);}.btn.ac:hover{background:var(--acd);transform:translateY(-2px);box-shadow:0 10px 28px var(--acg);}
+        .btn.gh{background:transparent;color:var(--t2);border:1px solid var(--b);}.btn.gh:hover{background:var(--cardh);border-color:var(--bh);color:var(--t);}
+        .pc.ft{border-color:rgba(200,245,96,.18);background:linear-gradient(135deg,rgba(200,245,96,.03),var(--card));}.pc.ft:hover{box-shadow:0 16px 48px rgba(0,0,0,.35),0 0 36px rgba(200,245,96,.06);}
+        .pc.vip{border-color:rgba(232,197,71,.22);background:linear-gradient(135deg,rgba(232,197,71,.05),rgba(0,0,0,.2));}.pc.vip .pp{color:var(--gld);}.pc.vip:hover{box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 36px var(--gldg);}
+        .btn.gd{background:linear-gradient(135deg,var(--gld),#D4B65F);color:#0A0A0B;font-weight:800;}.btn.gd:hover{box-shadow:0 10px 28px var(--gldg);transform:translateY(-2px);}
+        .al{display:block;text-align:center;padding:14px;margin-top:8px;border:1px solid var(--b);border-radius:14px;text-decoration:none;color:var(--t2);font-size:.65rem;font-weight:600;letter-spacing:.08em;transition:all .35s ease;}.al:hover{background:var(--card);border-color:var(--bh);color:var(--t);transform:translateY(-1px);}
+        .sup{display:flex;align-items:center;justify-content:center;gap:8px;padding:18px;margin-top:32px;text-decoration:none;color:var(--td);font-size:.65rem;font-weight:500;letter-spacing:.05em;transition:color .3s;}.sup:hover{color:var(--ac);}.sup svg{width:15px;height:15px;}
+        .foot{text-align:center;padding:22px 0 8px;border-top:1px solid var(--b);}.fb{font-family:'Playfair Display',serif;font-size:.82rem;color:var(--td);font-style:italic;}.fc{font-size:.52rem;color:rgba(255,255,255,.18);margin-top:5px;letter-spacing:.08em;}
+        .rv{opacity:0;transform:translateY(28px);transition:all .8s cubic-bezier(.16,1,.3,1);}.rv.vis{opacity:1;transform:translateY(0);}
         .d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}.d4{transition-delay:.32s;}
-        @media(max-width:380px){.ctn{padding:0 16px 60px;}.sb{padding:12px 6px;font-size:.54rem;}.sb svg{width:20px;height:20px;}.lc,.pc{padding:16px;}.aw{width:110px;height:110px;}.av{width:110px;height:110px;}}
+        @media(max-width:380px){.ctn{padding:0 16px 60px;}.sb{padding:14px 6px;}.lc,.pc{padding:16px;}.aw{width:120px;height:120px;}.av{width:120px;height:120px;}}
     </style>
 </head>
 <body>
-
 <canvas id="neural"></canvas>
 <div class="vig"></div>
-
 <div class="ctn">
     <header class="hdr rv">
-        <div class="aw">
-            <div class="a-pulse2"></div>
-            <div class="a-pulse"></div>
-            <div class="a-ring"></div>
-            <div class="av"><img src="https://github.com/thebodymindcode/go/blob/main/photo_2026-01-18_13-49-08.jpg?raw=true" alt="Архитектура Сознания"></div>
-        </div>
+        <div class="aw"><div class="a-p a-p2"></div><div class="a-p a-p1"></div><div class="a-ring"></div><div class="av"><img src="https://github.com/thebodymindcode/go/blob/main/photo_2026-01-18_13-49-08.jpg?raw=true" alt=""></div></div>
         <h1 class="hn">Архитектура<br>Сознания</h1>
         <p class="ht">Проектирую внутренние состояния как структуры<br>Внимание · мышление · продуктивность · тело<br><em>Привожу к точке покоя</em></p>
     </header>
 
-    <div class="stats rv d1">
-        <div class="st"><div class="sn" data-target="135" data-suffix="M+">0</div><div class="sl">Просмотров</div></div>
-        <div class="st"><div class="sn" data-target="800" data-suffix="+">0</div><div class="sl">Участников</div></div>
-        <div class="st"><div class="sn" data-target="92" data-suffix="%">0</div><div class="sl">Результат</div></div>
+    <div class="tgl rv d1">
+        <div class="tgl-big">Ваш мозг прямо сейчас тратит <span class="hl">80% энергии</span> на мысли, которые вы уже думали вчера. Здесь — выход.</div>
     </div>
 
     <div class="sec rv d2">
         <div class="sh"><div class="shl"></div><span class="sht">Подписаться</span><div class="shr"></div></div>
         <div class="sr">
-            <a href="https://t.me/iKWn82tKCXM2YjMy" target="_blank" class="sb tg"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.14.14 0 00-.07-.2c-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.74 3.99-1.74 6.65-2.89 7.99-3.44 3.81-1.58 4.6-1.86 5.12-1.87.11 0 .37.03.54.17.14.12.18.28.2.47-.01.06.01.24 0 .38z"/></svg>TG</a>
-            <a href="https://instagram.com/thebodymindcode" target="_blank" class="sb ig"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>IG</a>
-            <a href="https://www.youtube.com/@thebodymindcode" target="_blank" class="sb yt"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YT</a>
-            <a href="https://www.tiktok.com/@thebodymindcode" target="_blank" class="sb tt"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.46V13a8.26 8.26 0 005.58 2.17V11.7a4.84 4.84 0 01-3.77-1.81v-.01a4.83 4.83 0 003.77-3.19z"/></svg>TT</a>
+            <!-- TELEGRAM — custom paper plane -->
+            <a href="https://t.me/iKWn82tKCXM2YjMy" target="_blank" class="sb tg">
+                <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15.5L28 4 22 28l-7-6.5L28 4"/><path d="M15 21.5V27l3.5-4"/></svg>
+                Telegram
+            </a>
+            <!-- INSTAGRAM — custom lens/aperture -->
+            <a href="https://instagram.com/thebodymindcode" target="_blank" class="sb ig">
+                <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="4" y="4" width="24" height="24" rx="7"/><circle cx="16" cy="16" r="6"/><circle cx="24" cy="8" r="1.5" fill="currentColor" stroke="none"/></svg>
+                Instagram
+            </a>
+            <!-- YOUTUBE — custom play -->
+            <a href="https://www.youtube.com/@thebodymindcode" target="_blank" class="sb yt">
+                <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="26" height="20" rx="6"/><path d="M13 11.5L21 16l-8 4.5z" fill="currentColor" stroke="none"/></svg>
+                YouTube
+            </a>
+            <!-- TIKTOK — custom music note -->
+            <a href="https://www.tiktok.com/@thebodymindcode" target="_blank" class="sb tt">
+                <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 4v18a5 5 0 1 1-3-4.6"/><path d="M18 4c0 3.5 4 5.5 7 5.5"/></svg>
+                TikTok
+            </a>
         </div>
     </div>
 
     <div class="sec rv d3">
-        <div class="sh"><div class="shl"></div><span class="sht">Бесплатно</span><div class="shr"></div></div>
+        <div class="sh"><div class="shl"></div><span class="sht">Рассекречено</span><div class="shr"></div></div>
         <a href="https://thebodymindcode.github.io/body/" target="_blank" class="lc">
-            <div class="lb">Статья · Бесплатно</div>
-            <div class="lt">10 фактов о теле, которые от вас скрывают</div>
-            <div class="ld">Нейробиология и закрытые исследования: почему тело разрушается, даже когда анализы в норме.</div>
-            <div class="lf"><div class="lm"><span>14 мин</span><span>Нейробиология</span></div><div class="la"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></div></div>
+            <div class="lb">Досье · Бесплатно</div>
+            <div class="lt">То, что держит болезнь на месте</div>
+            <div class="ld">Механика здоровья, которую намеренно не преподают. Засекреченные исследования Бехтеревой, три мозга, один нерв.</div>
+            <div class="lf"><span>18 мин</span><span>Нейробиология</span></div>
+            <div class="card-cta">Читать бесплатно <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
         </a>
         <a href="https://thebodymindcode.github.io/peace/" target="_blank" class="lc">
-            <div class="lb">Статья · Бесплатно</div>
-            <div class="lt">Почему твой мозг никогда не замолкает</div>
-            <div class="ld">9 фактов из Гарвардских исследований. Вы поймёте свой мозг лучше, чем 95% людей.</div>
-            <div class="lf"><div class="lm"><span>12 мин</span><span>Мозг и DMN</span></div><div class="la"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></div></div>
+            <div class="lb">Досье · Бесплатно</div>
+            <div class="lt">Почему мозг никогда не замолкает</div>
+            <div class="ld">9 фактов, которые намеренно не преподают. DMN, миндалина, серотонин — и что с этим делают Navy SEALs и Гарвард.</div>
+            <div class="lf"><span>14 мин</span><span>Мозг и DMN</span></div>
+            <div class="card-cta">Читать бесплатно <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+    </div>
+
+    <div class="sec rv d3">
+        <div class="sh"><div class="shl"></div><span class="sht">Книга</span><div class="shr"></div></div>
+        <a href="https://thebodymindcode.github.io/bodybook/" target="_blank" class="lc book-card">
+            <div class="lb book-b">40 страниц · PDF</div>
+            <div class="lt">Тело говорит первым</div>
+            <div class="ld">30 сигналов по 7 системам тела. Каждый разобран: симптом → причина → анализы → действие. Чеклист, который можно взять к врачу.</div>
+            <div class="lf"><span>PDF · Мгновенный доступ</span><span class="book-price">490 ₽</span></div>
+            <div class="card-cta gold">Получить книгу <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
         </a>
     </div>
 
     <div class="sec rv d4">
         <div class="sh"><div class="shl"></div><span class="sht">Программы</span><div class="shr"></div></div>
         <div class="pc ft"><div class="pr"><div class="pi"><div class="pb hit">★ Хит продаж</div><div class="pn">Протокол остановки ума</div><div class="pd">28 дней · 16 мин/день. Перестройка мозга. Тревога ↓78%, ясность ↑85%.</div></div><div class="ppa"><div class="pop">5 900 ₽</div><div class="pp">2 990 ₽</div></div></div><div class="ptw"><span class="ptg">7 видео</span><span class="ptg">PDF 40 стр</span><span class="ptg">Чат</span><span class="ptg">Навсегда</span></div><a href="https://thebodymindcode.github.io/protocol" target="_blank" class="btn ac">Подробнее</a></div>
-        <div class="pc"><div class="pr"><div class="pi"><div class="pn">За пределами заболеваний</div><div class="pd">90 мин: почему тело в режиме борьбы + практика переключения.</div></div><div class="ppa"><div class="pp">1 490 ₽</div></div></div><div class="ptw"><span class="ptg">90 мин</span><span class="ptg">Запись навсегда</span></div><a href="https://thebodymindcode.github.io/Beyond/" target="_blank" class="btn gh">Подробнее</a></div>
-        <div class="pc"><div class="pr"><div class="pi"><div class="pn">Выбор</div><div class="pd">90 минут о решениях, которые удерживают вас на месте годами.</div></div><div class="ppa"><div class="pp">1 490 ₽</div></div></div><div class="ptw"><span class="ptg">90 мин</span><span class="ptg">Запись</span><span class="ptg">Чеклист</span></div><a href="https://thebodymindcode.github.io/choice/" target="_blank" class="btn gh">Подробнее</a></div>
+        <div class="pc"><div class="pr"><div class="pi"><div class="pn">За пределами заболеваний</div><div class="pd">120 мин: что держит симптомы на месте + практика переключения режима.</div></div><div class="ppa"><div class="pp">1 490 ₽</div></div></div><div class="ptw"><span class="ptg">120 мин</span><span class="ptg">Запись навсегда</span></div><a href="https://thebodymindcode.github.io/Beyond/" target="_blank" class="btn gh">Подробнее</a></div>
+        <div class="pc"><div class="pr"><div class="pi"><div class="pn">Выбор</div><div class="pd">Почему одни делают, а другие годами собираются. 90 мин про решения.</div></div><div class="ppa"><div class="pp">1 490 ₽</div></div></div><div class="ptw"><span class="ptg">90 мин</span><span class="ptg">Запись</span><span class="ptg">Чеклист</span></div><a href="https://thebodymindcode.github.io/choice/" target="_blank" class="btn gh">Подробнее</a></div>
         <div class="pc"><div class="pr"><div class="pi"><div class="pn">Код денег</div><div class="pd">14-дневный интенсив. Перепишите установки, блокирующие деньги.</div></div><div class="ppa"><div class="pp">5 900 ₽</div></div></div><div class="ptw"><span class="ptg">14 дней</span><span class="ptg">5 Zoom</span><span class="ptg">19 практик</span></div><a href="https://thebodymindcode.github.io/themoneycode/" target="_blank" class="btn gh">Подробнее</a></div>
         <div class="pc"><div class="pr"><div class="pi"><div class="pn">Внутренний Авторитет</div><div class="pd">Вернуть себе право решать. 3 встречи + техника программирования мозга.</div></div><div class="ppa"><div class="pp">4 900 ₽</div></div></div><div class="ptw"><span class="ptg">7 дней</span><span class="ptg">3 встречи</span><span class="ptg">Тетрадь</span></div><a href="https://thebodymindcode.github.io/authority/" target="_blank" class="btn gh">Подробнее</a></div>
         <div class="pc"><div class="pr"><div class="pi"><div class="pn">Код нового года</div><div class="pd">3 дня трансформации. Персональная фраза-код + утренний ритуал на год.</div></div><div class="ppa"><div class="pop">7 900 ₽</div><div class="pp">3 990 ₽</div></div></div><div class="ptw"><span class="ptg">3 дня</span><span class="ptg">Zoom</span><span class="ptg">6 практик</span></div><a href="https://thebodymindcode.github.io/NewYearCode/" target="_blank" class="btn gh">Подробнее</a></div>
@@ -183,235 +193,35 @@
         <div class="pc vip"><div class="pr"><div class="pi"><div class="pb" style="background:var(--gld);color:#0A0A0B;">👑 VIP · 1 месяц</div><div class="pn">VIP-сопровождение</div><div class="pd">Персональная трансформация. 4 сессии, Human Design, все программы, личный чат 30 дней.</div></div><div class="ppa"><div class="pp" style="color:var(--gld);">80 000 ₽</div></div></div><div class="ptw"><span class="ptg">4 сессии</span><span class="ptg">Human Design</span><span class="ptg">Все программы</span></div><a href="https://payform.ru/dtaGdlM/" target="_blank" class="btn gd">Записаться</a></div>
         <a href="https://thebodymindcode.github.io/shop/" target="_blank" class="al">Все программы и сравнение →</a>
     </div>
-
     <a href="https://t.me/TheBodyMindCode_support" target="_blank" class="sup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>Поддержка</a>
     <div class="foot"><div class="fb">Архитектура Сознания</div><div class="fc">© 2026 · @thebodymindcode</div></div>
 </div>
-
 <script>
-// ========== NEURAL NETWORK ==========
-const C = document.getElementById('neural');
-const X = C.getContext('2d');
-let W, H, mx = -999, my = -999;
-
-function resize() { W = C.width = innerWidth; H = C.height = innerHeight; }
-resize();
-addEventListener('resize', resize);
-addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-addEventListener('touchmove', e => { mx = e.touches[0].clientX; my = e.touches[0].clientY; }, {passive:true});
-addEventListener('mouseleave', () => { mx = my = -999; });
-
-const cols = [
-    {r:200,g:245,b:96},  // green
-    {r:100,g:180,b:255}, // blue
-    {r:232,g:197,b:71},  // gold
-    {r:140,g:220,b:170}, // mint
-    {r:180,g:140,b:255}, // purple
-];
-
-const N = 100; // neurons
-const CONN = 150;
-const MOUSE_R = 200;
-const neurons = [];
-
-class Neuron {
-    constructor(){
-        this.x = Math.random()*W;
-        this.y = Math.random()*H;
-        this.vx = (Math.random()-.5)*.4;
-        this.vy = (Math.random()-.5)*.4;
-        this.r = Math.random()*2.2+.8;
-        this.c = cols[~~(Math.random()*cols.length)];
-        this.ph = Math.random()*6.28;
-        this.ps = .01+Math.random()*.018;
-        this.bright = 0; // for click burst
-    }
-    update(){
-        this.ph += this.ps;
-        this.bright *= .95;
-        this.x += this.vx;
-        this.y += this.vy;
-        if(this.x<-30) this.x=W+30;
-        if(this.x>W+30) this.x=-30;
-        if(this.y<-30) this.y=H+30;
-        if(this.y>H+30) this.y=-30;
-
-        // Mouse attraction (gentle pull toward center area near mouse)
-        if(mx>0){
-            const dx=this.x-mx, dy=this.y-my;
-            const d=Math.sqrt(dx*dx+dy*dy);
-            if(d<MOUSE_R && d>10){
-                // Orbit-like: attract slightly but add perpendicular force
-                const f=(MOUSE_R-d)/MOUSE_R*.008;
-                this.vx -= (dx/d)*f;
-                this.vy -= (dy/d)*f;
-                // Perpendicular swirl
-                this.vx += (-dy/d)*f*.5;
-                this.vy += (dx/d)*f*.5;
-            }
-        }
-        this.vx*=.997;
-        this.vy*=.997;
-    }
-    draw(){
-        const g=Math.sin(this.ph)*.3+.5;
-        const a=.2+g*.35+this.bright;
-        const {r,g:gg,b}=this.c;
-        // Outer glow
-        X.beginPath();
-        X.arc(this.x,this.y,this.r*5,0,6.28);
-        X.fillStyle=`rgba(${r},${gg},${b},${a*.06})`;
-        X.fill();
-        // Core
-        X.beginPath();
-        X.arc(this.x,this.y,this.r*(.8+g*.5+this.bright*2),0,6.28);
-        X.fillStyle=`rgba(${r},${gg},${b},${Math.min(a,.85)})`;
-        X.fill();
-    }
-}
-
-for(let i=0;i<N;i++) neurons.push(new Neuron());
-
-// Signals
+const C=document.getElementById('neural'),X=C.getContext('2d');let W,H,mx=-999,my=-999,scrollY=0;
+const cols=[{r:200,g:245,b:96},{r:90,g:170,b:255},{r:232,g:197,b:71},{r:130,g:210,b:170},{r:170,g:130,b:255}];
+function resize(){W=C.width=innerWidth;H=C.height=innerHeight;initLayers();}
+let layers=[];
+function initLayers(){layers=[];const l0=[],l1=[],l2=[];for(let i=0;i<55;i++)l0.push(mkN(.12,.8,.15));for(let i=0;i<45;i++)l1.push(mkN(.25,1.5,.35));for(let i=0;i<18;i++)l2.push(mkN(.4,2.5,.6));layers=[l0,l1,l2];}
+function mkN(sp,maxR,alpha){return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*sp,vy:(Math.random()-.5)*sp,r:Math.random()*maxR+.5,c:cols[~~(Math.random()*cols.length)],ph:Math.random()*6.28,ps:.006+Math.random()*.014,a:alpha,bright:0,dx:0,dy:0};}
+resize();addEventListener('resize',resize);
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+addEventListener('touchmove',e=>{mx=e.touches[0].clientX;my=e.touches[0].clientY;},{passive:true});
+addEventListener('mouseleave',()=>{mx=my=-999;});
+addEventListener('scroll',()=>{scrollY=window.scrollY;},{passive:true});
+let waves=[];addEventListener('click',e=>{waves.push({x:e.clientX,y:e.clientY,r:0,maxR:350,sp:6,a:1});});
 let sigs=[];
-function maybeFire(){
-    if(sigs.length>10||Math.random()>.02) return;
-    for(let i=0;i<neurons.length;i++){
-        for(let j=i+1;j<neurons.length;j++){
-            const dx=neurons[i].x-neurons[j].x, dy=neurons[i].y-neurons[j].y;
-            const d=Math.sqrt(dx*dx+dy*dy);
-            if(d<CONN*.7 && Math.random()<.025){
-                sigs.push({a:neurons[i],b:neurons[j],t:0,sp:.018+Math.random()*.025,c:cols[~~(Math.random()*cols.length)]});
-                return;
-            }
-        }
-    }
-}
-
-// Click burst effect
-addEventListener('click', e => {
-    neurons.forEach(n => {
-        const dx=n.x-e.clientX, dy=n.y-e.clientY;
-        const d=Math.sqrt(dx*dx+dy*dy);
-        if(d<250){
-            const f=(250-d)/250;
-            n.bright = f;
-            n.vx += (dx/d)*f*3;
-            n.vy += (dy/d)*f*3;
-        }
-    });
-    // Spawn burst signals
-    for(let i=0;i<5;i++){
-        const close=neurons.filter(n=>{const dx=n.x-e.clientX,dy=n.y-e.clientY;return Math.sqrt(dx*dx+dy*dy)<200;});
-        if(close.length>=2){
-            const a=close[~~(Math.random()*close.length)];
-            let b=close[~~(Math.random()*close.length)];
-            if(a!==b) sigs.push({a,b,t:0,sp:.03+Math.random()*.03,c:cols[~~(Math.random()*cols.length)]});
-        }
-    }
-});
-
-function frame(){
-    X.clearRect(0,0,W,H);
-
-    // Center attractor (subtle gravity toward page center)
-    const cx=W/2, cy=H*.3;
-    neurons.forEach(n => {
-        const dx=n.x-cx, dy=n.y-cy;
-        const d=Math.sqrt(dx*dx+dy*dy);
-        if(d>200){
-            n.vx -= (dx/d)*.003;
-            n.vy -= (dy/d)*.003;
-        }
-        n.update();
-    });
-
-    // Connections
-    for(let i=0;i<neurons.length;i++){
-        for(let j=i+1;j<neurons.length;j++){
-            const dx=neurons[i].x-neurons[j].x, dy=neurons[i].y-neurons[j].y;
-            const d=Math.sqrt(dx*dx+dy*dy);
-            if(d<CONN){
-                const a=(1-d/CONN)*.09;
-                const c1=neurons[i].c, c2=neurons[j].c;
-                X.beginPath();
-                X.moveTo(neurons[i].x,neurons[i].y);
-                X.lineTo(neurons[j].x,neurons[j].y);
-                X.strokeStyle=`rgba(${(c1.r+c2.r)>>1},${(c1.g+c2.g)>>1},${(c1.b+c2.b)>>1},${a})`;
-                X.lineWidth=.6;
-                X.stroke();
-            }
-        }
-    }
-
-    neurons.forEach(n=>n.draw());
-
-    // Signals
-    maybeFire();
-    sigs=sigs.filter(s=>{
-        s.t+=s.sp;
-        if(s.t>=1){
-            // Hit target — flash it
-            s.b.bright=Math.max(s.b.bright,.4);
-            return false;
-        }
-        const x=s.a.x+(s.b.x-s.a.x)*s.t;
-        const y=s.a.y+(s.b.y-s.a.y)*s.t;
-        const {r,g,b}=s.c;
-        const al=Math.sin(s.t*3.14)*.8;
-        // Trail
-        X.beginPath();
-        X.arc(x,y,10,0,6.28);
-        X.fillStyle=`rgba(${r},${g},${b},${al*.1})`;
-        X.fill();
-        // Core
-        X.beginPath();
-        X.arc(x,y,2.5,0,6.28);
-        X.fillStyle=`rgba(${r},${g},${b},${al})`;
-        X.fill();
-        return true;
-    });
-
-    // Mouse glow
-    if(mx>0&&my>0){
-        const mg=X.createRadialGradient(mx,my,0,mx,my,80);
-        mg.addColorStop(0,'rgba(200,245,96,0.05)');
-        mg.addColorStop(1,'transparent');
-        X.beginPath();
-        X.arc(mx,my,80,0,6.28);
-        X.fillStyle=mg;
-        X.fill();
-    }
-
-    requestAnimationFrame(frame);
-}
+function maybeFire(){if(sigs.length>8||Math.random()>.025)return;const all=layers[1];for(let i=0;i<all.length;i++){for(let j=i+1;j<all.length;j++){const dx=all[i].dx-all[j].dx,dy=all[i].dy-all[j].dy;if(Math.sqrt(dx*dx+dy*dy)<130&&Math.random()<.04){sigs.push({a:all[i],b:all[j],t:0,sp:.015+Math.random()*.02,c:cols[~~(Math.random()*cols.length)]});return;}}}}
+function frame(){X.clearRect(0,0,W,H);const px=[.08,.25,.5],cd=[80,120,100],mr=[100,180,250];
+layers.forEach((layer,li)=>{const pOff=scrollY*px[li];layer.forEach(n=>{n.ph+=n.ps;n.bright*=.92;n.x+=n.vx;n.y+=n.vy;if(n.x<-40)n.x=W+40;if(n.x>W+40)n.x=-40;if(n.y<-40)n.y=H+40;if(n.y>H+40)n.y=-40;n.dx=n.x;n.dy=n.y-(pOff%H);if(mx>0){const dx=n.dx-mx,dy=n.dy-my,d=Math.sqrt(dx*dx+dy*dy);if(d<mr[li]&&d>5){const f=(mr[li]-d)/mr[li]*.006*(li+1);n.vx+=(dx/d)*f;n.vy+=(dy/d)*f;}}n.vx*=.998;n.vy*=.998;waves.forEach(w=>{const dx=n.dx-w.x,dy=n.dy-w.y,d=Math.sqrt(dx*dx+dy*dy);if(Math.abs(d-w.r)<30&&d>0){const f=w.a*.8*(li+1);n.vx+=(dx/d)*f;n.vy+=(dy/d)*f;n.bright=Math.min(n.bright+w.a*.5,1);}});});
+for(let i=0;i<layer.length;i++){for(let j=i+1;j<layer.length;j++){const dx=layer[i].dx-layer[j].dx,dy=layer[i].dy-layer[j].dy,d=Math.sqrt(dx*dx+dy*dy);if(d<cd[li]){let a=(1-d/cd[li])*(.04+na(layer[i])+na(layer[j]))*.5;if(mx>0){const m1=dist(layer[i].dx,layer[i].dy,mx,my),m2=dist(layer[j].dx,layer[j].dy,mx,my);if(m1<mr[li]||m2<mr[li])a*=2.5;}const c1=layer[i].c,c2=layer[j].c;X.beginPath();X.moveTo(layer[i].dx,layer[i].dy);X.lineTo(layer[j].dx,layer[j].dy);X.strokeStyle=`rgba(${(c1.r+c2.r)>>1},${(c1.g+c2.g)>>1},${(c1.b+c2.b)>>1},${Math.min(a,.2)})`;X.lineWidth=li===2?.8:.4;X.stroke();}}}
+layer.forEach(n=>{const g=Math.sin(n.ph)*.3+.5,a=n.a*.5+g*n.a*.5+n.bright,r=n.c.r,gg=n.c.g,b=n.c.b;X.beginPath();X.arc(n.dx,n.dy,n.r*(3+li),0,6.28);X.fillStyle=`rgba(${r},${gg},${b},${a*.07})`;X.fill();X.beginPath();X.arc(n.dx,n.dy,n.r*(.7+g*.4+n.bright*1.5),0,6.28);X.fillStyle=`rgba(${r},${gg},${b},${Math.min(a,.9)})`;X.fill();});});
+maybeFire();sigs=sigs.filter(s=>{s.t+=s.sp;if(s.t>=1){s.b.bright=Math.max(s.b.bright,.5);return false;}const x=s.a.dx+(s.b.dx-s.a.dx)*s.t,y=s.a.dy+(s.b.dy-s.a.dy)*s.t,r=s.c.r,g=s.c.g,b=s.c.b,al=Math.sin(s.t*3.14)*.85;X.beginPath();X.arc(x,y,8,0,6.28);X.fillStyle=`rgba(${r},${g},${b},${al*.1})`;X.fill();X.beginPath();X.arc(x,y,2.5,0,6.28);X.fillStyle=`rgba(${r},${g},${b},${al})`;X.fill();return true;});
+waves=waves.filter(w=>{w.r+=w.sp;w.a*=.97;if(w.a<.01)return false;X.beginPath();X.arc(w.x,w.y,w.r,0,6.28);X.strokeStyle=`rgba(200,245,96,${w.a*.15})`;X.lineWidth=2;X.stroke();return w.r<w.maxR;});
+if(mx>0&&my>0){const mg=X.createRadialGradient(mx,my,0,mx,my,100);mg.addColorStop(0,'rgba(200,245,96,0.04)');mg.addColorStop(.5,'rgba(100,180,255,0.02)');mg.addColorStop(1,'transparent');X.beginPath();X.arc(mx,my,100,0,6.28);X.fillStyle=mg;X.fill();}
+requestAnimationFrame(frame);}
+function na(n){return(Math.sin(n.ph)*.3+.5)*n.a;}function dist(x1,y1,x2,y2){return Math.sqrt((x1-x2)**2+(y1-y2)**2);}
 frame();
-
-// ========== COUNTER ANIMATION ==========
-const counterObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-        if(!e.isIntersecting) return;
-        const el = e.target;
-        const target = +el.dataset.target;
-        const suffix = el.dataset.suffix || '';
-        let current = 0;
-        const step = Math.ceil(target / 40);
-        const timer = setInterval(() => {
-            current += step;
-            if(current >= target){ current = target; clearInterval(timer); }
-            el.textContent = current + suffix;
-        }, 30);
-        counterObs.unobserve(el);
-    });
-}, {threshold:.5});
-document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
-
-// ========== REVEAL ==========
-const obs = new IntersectionObserver(e => {
-    e.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
-}, {threshold:.08});
-document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+const obs=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:.08});document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 </script>
-
 </body>
 </html>
